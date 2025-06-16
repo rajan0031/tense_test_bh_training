@@ -1,0 +1,93 @@
+<div class="container py-5">
+  <div class="bg-white shadow-sm rounded p-4 border">
+    <!-- Header Section -->
+    <div class="text-center mb-4">
+      <h1 class="text-primary fw-bold mb-2">📘 Tenses Mastery Quiz</h1>
+      <p class="text-secondary">
+        ✍️ Test your grammar skills and improve your understanding of verb
+        tenses!
+      </p>
+      <p class="text-muted fst-italic small">
+        Choose the correct verb form in each sentence. You have 15 minutes.⏱️
+        Ready, set, go!
+      </p>
+    </div>
+
+    <!-- Timer Display -->
+    <div *ngIf="!submitted" class="text-center mb-4">
+      <span class="badge bg-danger fs-6 px-4 py-2">
+        ⏳ Time Left: {{ minutes }}:{{ seconds < 10 ? "0" + seconds : seconds }}
+      </span>
+    </div>
+
+    <!-- Quiz Form Start -->
+    <form *ngIf="!submitted" (ngSubmit)="submitQuiz()">
+      <!-- Iterate Questions -->
+      <div *ngFor="let q of questions; let i = index" class="mb-5">
+        <p class="fw-semibold fs-5 text-dark">{{ i + 1 }}️⃣ {{ q.question }}</p>
+
+        <!-- Iterate Options -->
+        <div *ngFor="let opt of q.options" class="form-check ps-4 mb-2">
+          <input
+            type="radio"
+            class="form-check-input"
+            [name]="'q' + i"
+            [value]="opt"
+            [(ngModel)]="answers[i]"
+            [id]="'q' + i + opt"
+          />
+          <label class="form-check-label" [for]="'q' + i + opt">
+            {{ opt }}
+          </label>
+        </div>
+
+        <!-- Decorative Divider -->
+        <hr class="text-muted" />
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-center">
+        <button type="submit" class="btn btn-success px-5 py-2 fs-5">
+          ✅ Submit Quiz
+        </button>
+      </div>
+    </form>
+
+    <!-- Result Section -->
+    <div *ngIf="submitted" class="mt-5 text-center">
+      <h2 class="text-success mb-3">
+        🎉 Your Score: {{ score }} / {{ questions.length }} 🎉
+      </h2>
+
+      <p class="text-secondary mb-2">
+        📚 Great job! Use this feedback to sharpen your grammar skills even
+        more.
+      </p>
+
+      <!-- Time Taken Display -->
+      <p class="text-info fs-6">🕒 Time Taken: {{ timeTaken }}</p>
+
+      <a href="/">
+        <button class="btn btn-outline-primary mt-3">🔄 Try Again</button>
+      </a>
+    </div>
+    <!-- Personal Info Card -->
+    <div
+      class="d-flex align-items-center gap-3 border p-3 rounded shadow-sm mt-4"
+    >
+      <img
+        src="https://via.placeholder.com/80"
+        alt="Rajan's Display Picture"
+        class="rounded-circle"
+        width="80"
+        height="80"
+      />
+      <div>
+        <h5 class="mb-1">Rajan Kushwaha</h5>
+        <p class="mb-0 text-muted">
+          Full Stack Dev | Angular & .NET | Clean Code Advocate
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
